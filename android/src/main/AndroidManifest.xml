@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="online.teajsgprod.zebra_datawedge">
+
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_RESTRICTED"/>
+    <uses-permission android:name="com.symbol.datawedge.api.NOTIFICATION"/>
+
+
+
+</manifest>
