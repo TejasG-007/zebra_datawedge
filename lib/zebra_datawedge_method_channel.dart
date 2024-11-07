@@ -18,7 +18,7 @@ class MethodChannelZebraDataWedge extends ZebraDataWedgePlatform {
   static const String dwProfile = "TejasGProdInternalProfile";
 
   @override
-  initialized(){
+  initialized() {
     disableDataWedge();
     eventChannel.receiveBroadcastStream().listen(_onEvent, onError: _onError);
   }

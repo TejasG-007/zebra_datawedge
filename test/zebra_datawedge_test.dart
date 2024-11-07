@@ -7,7 +7,6 @@ import 'package:zebra_scan_datawedge/zebra_datawedge_platform_interface.dart';
 class MockZebraDataWedgePlatform
     with MockPlatformInterfaceMixin
     implements ZebraDataWedgePlatform {
-
   @override
   Future<void> createDataWedgeProfile({String profileName = ""}) {
     throw UnimplementedError();
@@ -37,9 +36,7 @@ class MockZebraDataWedgePlatform
   }
 
   @override
-  void initialized() {
-
-  }
+  void initialized() {}
 }
 
 void main() {
@@ -58,5 +55,3 @@ void main() {
     //expect(await zebraDataWedgePlugin.getPlatformVersion(), '42');
   });
 }
-
-

@@ -23,7 +23,7 @@ abstract class ZebraDataWedgePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  void initialized(){
+  void initialized() {
     throw UnimplementedError("initialized is not Called");
   }
 

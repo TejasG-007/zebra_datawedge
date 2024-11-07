@@ -25,6 +25,6 @@ void main() {
 
   test('Test Scanners', () async {
     await platform.startScan();
-  //  expect(await platform.getPlatformVersion(), '42');
+    //  expect(await platform.getPlatformVersion(), '42');
   });
 }
