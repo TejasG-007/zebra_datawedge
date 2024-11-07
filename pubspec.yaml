@@ -1,4 +1,4 @@
-name: flutter_zebra_datawedge
+name: zebra_scan_datawedge
 description: "The `ZebraDataWedge` plugin is a Flutter interface for interacting with Zebra's DataWedge, enabling you to create and configure a DataWedge profile, start/stop scanning"
 version: 0.0.1
 homepage: "https://portfolio.tejasgprod.online"

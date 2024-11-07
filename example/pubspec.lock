@@ -271,7 +271,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  zebra_datawedge:
+  zebra_scan_datawedge:
     dependency: "direct main"
     description:
       path: ".."

@@ -8,7 +8,8 @@
 
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';import 'package:zebra_datawedge/zebra_datawedge.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:zebra_scan_datawedge/zebra_datawedge.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();

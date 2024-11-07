@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zebra_datawedge/zebra_datawedge.dart';
+import 'package:zebra_scan_datawedge/zebra_datawedge.dart';
 
 void main() {
   runApp(const MyApp());
