@@ -18,7 +18,7 @@ To use the Zebra DataWedge plugin, add it to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  zebra_datawedge: ^<latest_version>
+  zebra_scan_print_datawedge: ^<latest_version>
 ```
 
 Then, run `flutter pub get` to install the package.

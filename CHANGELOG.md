@@ -6,6 +6,6 @@
 
 * minor Bug fixes
 
-## 1.0.3
+## 1.0.4
 
 * Printer support Added
