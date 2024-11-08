@@ -10,6 +10,8 @@ This plugin provides a simple interface for interacting with Zebra DataWedge for
 - **Print labels using Zebra printers**
 - **Calibrate Zebra printers**
 
+![Example App](https://raw.githubusercontent.com/TejasG-007/assets/refs/heads/main/zebra.png.png)
+
 ## Installation
 
 To use the Zebra DataWedge plugin, add it to your `pubspec.yaml` file:
