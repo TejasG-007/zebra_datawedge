@@ -54,7 +54,7 @@ class ZebraDatawedgePlugin : FlutterPlugin, MethodCallHandler, EventChannel.Stre
         } else if (call.method == "connectToPrinterWithIP") {
             val arguments = JSONObject(call.arguments.toString())
             val ip: String = arguments.get("printerId") as String
-            val port = 9100
+            val port: Int = (arguments.get("portNumber")?:9100) as Int
             printerHelper.connectPrinterWithIP(ip, port, result)
             //result.success(isConnected)
         } else if (call.method == "printLabel") {

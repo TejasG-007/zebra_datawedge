@@ -1,140 +1,179 @@
-# ZebraDataWedge Plugin
+# Zebra DataWedge Plugin
 
-The `ZebraDataWedge` plugin is a Flutter interface for interacting with Zebra's DataWedge, enabling you to create and configure a DataWedge profile, start/stop scanning, enable/disable DataWedge, and listen to scan data through a stream.
+This plugin provides a simple interface for interacting with Zebra DataWedge for barcode scanning and label printing functionalities. It includes methods to manage DataWedge profiles, control scanning, and print labels via Zebra printers.
 
 ## Features
-
-- **Create a DataWedge Profile**: Easily create a new DataWedge profile with a customizable profile name.
-- **Start and Stop Scanning**: Control the scanning process programmatically.
-- **Enable or Disable DataWedge**: Toggle DataWedge functionality on Zebra devices.
-- **Stream Scanned Data**: Retrieve scanned data via a stream for real-time processing.
+- **Create and manage DataWedge profiles**
+- **Start and stop barcode scanning**
+- **Stream scanned data**
+- **Connect to Zebra printers (via IP)**
+- **Print labels using Zebra printers**
+- **Calibrate Zebra printers**
 
 ## Installation
 
-Add the plugin to your `pubspec.yaml`:
+To use the Zebra DataWedge plugin, add it to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  zebra_datawedge: ^1.0.0 # Replace with the actual version
+  zebra_datawedge: ^<latest_version>
 ```
 
-Then, install the package:
+Then, run `flutter pub get` to install the package.
 
-```bash
-flutter pub get
-```
+## Setup
+
+1. Make sure you have the **Zebra DataWedge** app installed on your Zebra device.
+2. Ensure that the necessary permissions are granted for accessing the scanner and printer functionalities.
 
 ## Usage
 
-### Import the Package
+### Initialize DataWedge
+
+Before using any of the DataWedge functionalities, you must initialize the plugin.
 
 ```dart
-import 'package:zebra_datawedge/zebra_datawedge.dart';
+ZebraDataWedge().initialized();
 ```
 
-### Initialize the Plugin
+### Scanning Methods
 
-Create an instance of the `ZebraDataWedge` class:
+1. **Create DataWedge Profile**  
+   This method creates a DataWedge profile with the given name. If no name is provided, it defaults to `"TejasGProdInternal_2"`.
 
-```dart
-final zebraDataWedge = ZebraDataWedge();
-```
+   ```dart
+   ZebraDataWedge().createDataWedgeProfile(profileName: "MyProfile");
+   ```
 
-### Methods
+2. **Start Scanning**  
+   This method will start the barcode scanner.
 
-#### 1. `createDataWedgeProfile`
+   ```dart
+   ZebraDataWedge().startScan();
+   ```
 
-Creates a new DataWedge profile with the specified name.
+3. **Stop Scanning**  
+   This method will stop the barcode scanner.
 
-```dart
-await zebraDataWedge.createDataWedgeProfile(profileName: "CustomProfileName");
-```
+   ```dart
+   ZebraDataWedge().stopScan();
+   ```
 
-- **Parameters**:
-    - `profileName` (optional): The name of the profile. Defaults to `"TejasGProdInternal_2"`.
+4. **Get Stream of Scanned Data**  
+   This method provides a stream that will emit the scanned barcode data as it is scanned by the scanner.
 
-#### 2. `getStreamOfData`
+   ```dart
+   ZebraDataWedge().getStreamOfData.listen((scannedData) {
+     print('Scanned Data: $scannedData');
+   });
+   ```
 
-A stream that provides the latest scan data.
+5. **Enable DataWedge**  
+   Enables the DataWedge service.
 
-```dart
-zebraDataWedge.getStreamOfData.listen((scannedData) {
-  print("Scanned Data: $scannedData");
-});
-```
+   ```dart
+   ZebraDataWedge().enableDataWedge();
+   ```
 
-#### 3. `startScan`
+6. **Disable DataWedge**  
+   Disables the DataWedge service.
 
-Starts the scanning process.
+   ```dart
+   ZebraDataWedge().disableDataWedge();
+   ```
 
-```dart
-await zebraDataWedge.startScan();
-```
+### Printer Methods
 
-#### 4. `stopScan`
+1. **Connect to Printer**  
+   Connect to a Zebra printer using its IP address and an optional port number (default is `9100`).
 
-Stops the scanning process.
+   ```dart
+   bool isConnected = await ZebraDataWedge().connectToPrinter("192.168.1.100");
+   ```
 
-```dart
-await zebraDataWedge.stopScan();
-```
+2. **Disconnect from Printer**  
+   Disconnect from the Zebra printer using its IP address.
 
-#### 5. `initialized`
+   ```dart
+   bool isDisconnected = await ZebraDataWedge().disconnectToPrinter("192.168.1.100");
+   ```
 
-Initializes the DataWedge and starts listening to the stream.
+3. **Print Label**  
+   Send a ZPL (Zebra Programming Language) command to the printer to print a label. Make sure to pass the label enclosed in forward slash and  single quotes (`/'`) as shown below.
 
-```dart
-zebraDataWedge.initialized();
-```
+   ```dart
+   bool printed = await ZebraDataWedge().printerLabel("192.168.1.100", "/'^XA^FO100,100^A0N,50,50^FDHello, World!^FS^XZ'/");
+   ```
 
-#### 6. `disableDataWedge`
+4. **Calibrate Printer**  
+   Calibrate the Zebra printer by sending a calibration command. The command must be enclosed in forward slash and single quotes (`/'`).
 
-Disables the DataWedge on the device.
+   ```dart
+   bool calibrated = await ZebraDataWedge().calibratePrinter("192.168.1.100", "/'^XA^MMT^XZ'/");
+   ```
 
-```dart
-await zebraDataWedge.disableDataWedge();
-```
+5. **Check if Printer is Available**  
+   This method will check if the printer is available by pinging its IP address.
 
-#### 7. `enableDataWedge`
+   ```dart
+   bool isAvailable = await ZebraDataWedge().isPrinterAvailable("192.168.1.100");
+   ```
 
-Enables the DataWedge on the device.
+## API Methods
 
-```dart
-await zebraDataWedge.enableDataWedge();
-```
+### Scanning Methods:
+- **`createDataWedgeProfile({String profileName = "TejasGProdInternal_2"})`**: Creates a DataWedge profile with the given profile name.
+- **`startScan()`**: Starts the barcode scanning process.
+- **`stopScan()`**: Stops the barcode scanning process.
+- **`getStreamOfData`**: Stream of data that provides the scanned barcode as a string.
+- **`initialized()`**: Initializes the plugin for use.
+- **`enableDataWedge()`**: Enables the DataWedge service for scanning.
+- **`disableDataWedge()`**: Disables the DataWedge service for scanning.
+
+### Printer Methods:
+- **`connectToPrinter(String ipAddress, {int portNumber = 9100})`**: Connects to a Zebra printer using the provided IP address and port number.
+- **`disconnectToPrinter(String ipAddress)`**: Disconnects from a Zebra printer.
+- **`printerLabel(String ipAddress, String label)`**: Sends a ZPL label to the printer.
+- **`calibratePrinter(String ipAddress, String command)`**: Sends a calibration command to the printer.
+- **`isPrinterAvailable(String ipAddress)`**: Checks if the printer is available at the provided IP address.
 
 ## Example
 
 ```dart
-import 'package:zebra_datawedge/zebra_datawedge.dart';
+void main() async {
+  ZebraDataWedge dataWedge = ZebraDataWedge();
 
-void main() {
-  final zebraDataWedge = ZebraDataWedge();
+  // Initialize DataWedge
+  await dataWedge.initialized();
 
-  // Initialize and listen to scanned data
-  zebraDataWedge.initialized();
-  zebraDataWedge.getStreamOfData.listen((scannedData) {
-    print("Scanned Data: $scannedData");
-  });
+  // Create DataWedge Profile
+  await dataWedge.createDataWedgeProfile(profileName: "MyProfile");
 
   // Start scanning
-  zebraDataWedge.startScan();
+  await dataWedge.startScan();
 
-  // Stop scanning when done
-  zebraDataWedge.stopScan();
+  // Listen to scanned data
+  dataWedge.getStreamOfData.listen((scannedData) {
+    print('Scanned Data: $scannedData');
+  });
 
-  // Enable DataWedge
-  zebraDataWedge.enableDataWedge();
+  // Connect to the printer
+  bool connected = await dataWedge.connectToPrinter("192.168.1.100");
 
-  // Disable DataWedge
-  zebraDataWedge.disableDataWedge();
+  // Print a label
+  bool printed = await dataWedge.printerLabel("192.168.1.100", "'^XA^FO100,100^A0N,50,50^FDHello, Zebra!^FS^XZ'");
+
+  // Check if the printer is available
+  bool isAvailable = await dataWedge.isPrinterAvailable("192.168.1.100");
+
+  // Calibrate the printer
+  bool calibrated = await dataWedge.calibratePrinter("192.168.1.100", "'^XA^MMT^XZ'");
+
+  // Disconnect from the printer
+  bool disconnected = await dataWedge.disconnectToPrinter("192.168.1.100");
 }
 ```
 
 ## License
 
-This plugin is licensed under the MIT License. See [LICENSE](LICENSE) for details.
-
----
-
-This `README.md` should provide clear guidance on using the `ZebraDataWedge` plugin. Let me know if you'd like to add any additional information!
+This plugin is open-source and available under the [MIT License](LICENSE).

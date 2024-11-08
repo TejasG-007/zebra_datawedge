@@ -37,6 +37,36 @@ class MockZebraDataWedgePlatform
 
   @override
   void initialized() {}
+
+  @override
+  Future<bool> calibratePrinter(String ipAddress, String command) {
+    // TODO: implement calibratePrinter
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> connectToPrinter(String ipAddress, {int portNumber = 9100}) {
+    // TODO: implement connectToPrinter
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> disconnectToPrinter(String ipAddress) {
+    // TODO: implement disconnectToPrinter
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> isPrinterAvailable(String ipAddress) {
+    // TODO: implement isPrinterAvailable
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> printLabel(String ipAddress, String label) {
+    // TODO: implement printLabel
+    throw UnimplementedError();
+  }
 }
 
 void main() {

@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-
 import 'zebra_datawedge_platform_interface.dart';
 
 /// An implementation of [ZebraDataWedgePlatform] that uses method channels.
@@ -13,14 +11,16 @@ class MethodChannelZebraDataWedge extends ZebraDataWedgePlatform {
   final methodChannel = const MethodChannel('zebra_datawedge');
 
   @visibleForTesting
-  final eventChannel = const EventChannel('online.tejasgprod.scanning');
+  final scanningChannel = const EventChannel('online.tejasgprod.scanning');
 
   static const String dwProfile = "TejasGProdInternalProfile";
 
   @override
   initialized() {
     disableDataWedge();
-    eventChannel.receiveBroadcastStream().listen(_onEvent, onError: _onError);
+    scanningChannel
+        .receiveBroadcastStream()
+        .listen(_onEvent, onError: _onError);
   }
 
   StreamController<String> scannedDataStreamController =
@@ -102,5 +102,61 @@ class MethodChannelZebraDataWedge extends ZebraDataWedgePlatform {
   void _onError(Object object, StackTrace stackTrace) {
     print("Error object $object, ${stackTrace.toString()}");
     print('Error while receiving the scan result.');
+  }
+
+  @override
+  Future<bool> connectToPrinter(String ipAddress,
+      {int portNumber = 9100}) async {
+    try {
+      return await methodChannel.invokeMethod("connectToPrinterWithIP",
+          {"printerId": ipAddress, "portNumber": portNumber});
+    } catch (e) {
+      print("There is an issue while connecting to the printer $e");
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> disconnectToPrinter(String ipAddress) async {
+    try {
+      return await methodChannel
+          .invokeMethod("disconnect", {"printerId": ipAddress});
+    } catch (e) {
+      print("There is an issue while disconnecting to the printer $e");
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> isPrinterAvailable(String ipAddress) async {
+    try {
+      return await methodChannel
+          .invokeMethod("isPrinterAvailable", {"printerId": ipAddress});
+    } catch (e) {
+      print("There is an issue while checking printer $e");
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> calibratePrinter(String ipAddress, String command) async {
+    try {
+      return await methodChannel.invokeMethod(
+          "calibrate_printer", {"printerId": ipAddress, "command": command});
+    } catch (e) {
+      print("There is an issue while calibrating the printer $e");
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> printLabel(String ipAddress, String label) async {
+    try {
+      return await methodChannel.invokeMethod(
+          "printLabel", {"printerId": ipAddress, "label": label});
+    } catch (e) {
+      print("There is an issue while printing the Label $e");
+      return false;
+    }
   }
 }
