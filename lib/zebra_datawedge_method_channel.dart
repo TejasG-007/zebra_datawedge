@@ -152,8 +152,8 @@ class MethodChannelZebraDataWedge extends ZebraDataWedgePlatform {
   @override
   Future<bool> printLabel(String ipAddress, String label) async {
     try {
-      return await methodChannel.invokeMethod(
-          "printLabel", {"printerId": ipAddress, "label": label});
+      return await methodChannel
+          .invokeMethod("printLabel", {"printerId": ipAddress, "label": label});
     } catch (e) {
       print("There is an issue while printing the Label $e");
       return false;

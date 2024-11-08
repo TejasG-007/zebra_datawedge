@@ -204,14 +204,16 @@ class _MyAppState extends State<MyApp> {
                           TextButton(
                               onPressed: () async {
                                 final status = await zebraSdk.printerLabel(
-                                    printerController.text,"\'^XA\\n^FO100,100^A0N,50,50^FDHi from TejasG Production^FS^XZ\'");// make sure add you calibration command in \'{label}\'
+                                    printerController.text,
+                                    "\'^XA\\n^FO100,100^A0N,50,50^FDHi from TejasG Production^FS^XZ\'"); // make sure add you calibration command in \'{label}\'
                                 showSnackBar(Text("Is Label Printed $status"));
                               },
                               child: const Text("Print-Label")),
                           TextButton(
                               onPressed: () async {
                                 final status = await zebraSdk.calibratePrinter(
-                                    printerController.text, "\'\'");// make sure add you calibration command in \'{command}\'
+                                    printerController.text,
+                                    "\'\'"); // make sure add you calibration command in \'{command}\'
                                 showSnackBar(Text("Is Calibrated $status"));
                               },
                               child: const Text("Calibrate")),

@@ -51,29 +51,23 @@ abstract class ZebraDataWedgePlatform extends PlatformInterface {
         "createDataWedgeProfile() Method is Not Implemented");
   }
 
-  Future<bool> connectToPrinter(String ipAddress,{int portNumber=9100}){
-    throw UnimplementedError(
-        "connectToPrinter() Method is Not Implemented");
+  Future<bool> connectToPrinter(String ipAddress, {int portNumber = 9100}) {
+    throw UnimplementedError("connectToPrinter() Method is Not Implemented");
   }
 
-  Future<bool> disconnectToPrinter(String ipAddress){
-    throw UnimplementedError(
-        "disconnectToPrinter() Method is Not Implemented");
+  Future<bool> disconnectToPrinter(String ipAddress) {
+    throw UnimplementedError("disconnectToPrinter() Method is Not Implemented");
   }
 
-  Future<bool> isPrinterAvailable(String ipAddress){
-    throw UnimplementedError(
-        "isPrinterAvailable() Method is Not Implemented");
+  Future<bool> isPrinterAvailable(String ipAddress) {
+    throw UnimplementedError("isPrinterAvailable() Method is Not Implemented");
   }
 
-  Future<bool> printLabel(String ipAddress,String label){
-    throw UnimplementedError(
-        "printLabel() Method is Not Implemented");
+  Future<bool> printLabel(String ipAddress, String label) {
+    throw UnimplementedError("printLabel() Method is Not Implemented");
   }
 
-  Future<bool> calibratePrinter(String ipAddress,String command){
-    throw UnimplementedError(
-        "calibratePrinter() Method is Not Implemented");
+  Future<bool> calibratePrinter(String ipAddress, String command) {
+    throw UnimplementedError("calibratePrinter() Method is Not Implemented");
   }
-
 }

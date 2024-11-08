@@ -41,7 +41,6 @@ class ZebraDataWedge {
 
   //-------------Printing Methods--------------------------//
 
-
   //This method will help connect to printer , where by default its taking 9100 port
   Future<bool> connectToPrinter(String ipAddress,
       {int portNumber = 9100}) async {
